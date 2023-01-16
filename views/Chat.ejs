@@ -15,16 +15,24 @@
 <button id="btn">Send</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
     <script>
-        var socket = io("ws://localhost:3000");
+        var socket = io("ws://test2-to63.onrender.com:3000");
         console.log('test');
+        socket.on('connection',function(){
+        })
         document.getElementById('btn').addEventListener( 'click', function( e ) {
 var msg = document.getElementById('msg').value
-socket.emit( 'msg', msg );})
-socket.on('message',(data)=>{
-    document.getElementById('msgR').innerHTML+=`<li>${data}</li>`
-    console.log(data);
-})
-
+socket.emit( 'msg', msg )});
+    console.log('tests');
+    socket.on('message',(data)=>{
+        
+        document.getElementById('msgR').innerHTML+=`<li>${data}</li>`
+        console.log(data);
+    })
+    socket.on('msg',(data)=>{
+        document.getElementById('msgR').innerHTML+=`<li>${data}</li>`
+        console.log('tesw');
+    })
+    
     </script>
 </body>
 </html>
