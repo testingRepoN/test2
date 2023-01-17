@@ -1,11 +1,15 @@
-const { send } = require('process');
 
-var app = require( 'express' )();
-var http = require( 'http' ).createServer( app );
-var io = require( 'socket.io' )( http, {   cors: {
-  origin:'*'}} );
+const express = require("express");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, { cors:{
+  origin:'*'
+} });
 //var ejs = require('ejs')
-const PORT = 3000;
+const PORT = process.env.PORT||3000;
 
 app.get( '/', function( req, res ) {
   res.render('Chat.ejs');
@@ -14,7 +18,7 @@ app.get( '/', function( req, res ) {
     res.sendFile( '/socket.io/socket.io.js' );
     });
 
-    http.listen( PORT, function() {
+    httpServer.listen( PORT, function() {
       console.log( 'listening on *:' + PORT );
       });
     io.on("connection", socket => {
